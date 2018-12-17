@@ -1,9 +1,13 @@
 class UrlsController < ApplicationController
   def new
+    authenticate_user!
+
     @url = Url.new
   end
 
   def create
+    authenticate_user!
+
     @url = Url.new(url_params)
     if @url.save
       redirect_to urls_path, notice: 'URL created successfully'
@@ -13,15 +17,21 @@ class UrlsController < ApplicationController
   end
 
   def index
+    authenticate_user!
+
     @urls = Url.all
     @tags = Tag.all
   end
 
   def edit
+    authenticate_user!
+    
    @url = Url.find(params[:id])
  end
 
  def update
+    authenticate_user!
+  
   @url = Url.find(params[:id])
   if @url.update_attributes(url_params)
     redirect_to urls_path, notice: 'URL updated successfully'
@@ -31,12 +41,16 @@ class UrlsController < ApplicationController
 end
 
 def destroy
+    authenticate_user!
+  
   @url = Url.find(params[:id])
   @url.destroy
   redirect_to urls_path, notice: 'URL deleted successfully'
 end
 
 def add_tag
+    authenticate_user!
+  
   @url = Url.find(params[:url_id])
 
   if !(tag = Tag.find_by(name:params[:name]))
