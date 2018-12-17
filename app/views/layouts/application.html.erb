@@ -1,14 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SearchEngine</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>GoGo Search</title>
+  <%= csrf_meta_tags %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <nav class="navbar navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">GOGO</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
+          <li><%=link_to "Hello, #{current_user.name} !",admin_path %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li> 
+          <% else %>
+          <li><%= link_to 'Admin Login', new_user_session_path %></li> 
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br>
+<br>
+<br>
+<div class="content">
+  <% flash.each do |name, msg| %>
+  <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+  <% end %>
+  <%= yield %>
+  
+</div>
+
+</body>
+<script type="text/javascript">
+$(document).ready(
+    function() {
+      $("#myTable").DataTable(
+      {
+        "lengthMenu" : [ [10, 15, 20, -1 ],
+        [10, 15, 20, "All" ] ],
+        "ordering" : true,
+        stateSave : true
+      });
+    })
+  
+</script>
+<script type="text/javascript">
+$(document).ready(
+    function() {
+      $("#myTagTable").DataTable(
+      {
+        "lengthMenu" : [ [10, 15, 20, -1 ],
+        [10, 15, 20, "All" ] ],
+        "ordering" : true,
+        stateSave : true
+      });
+    })
+  
+</script>
 </html>

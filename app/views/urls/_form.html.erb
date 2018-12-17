@@ -1,0 +1,34 @@
+<div id="new-form">
+  <%= form_for(@url) do |f| %>
+    <% if @url.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@url.errors.count, "error") %> Error:</h2>
+
+        <ul>
+        <% @url.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :Title %> 
+      <%= f.text_field :title, class:"form-control", placeholder:"Title", required: true%> 
+    </div>
+
+    <div class="form-group">
+      <%= f.label :Address %> 
+      <%= f.phone_field :address, class:"form-control", placeholder:"Address", required: true%> 
+    </div>
+
+    <div class="action">
+
+        
+      <%= f.submit class:"btn btn-primary "%>
+
+      <%= link_to "Cancel", urls_path, class:"btn btn-primary " %>
+    </div>
+
+  <% end %>
+</div> 

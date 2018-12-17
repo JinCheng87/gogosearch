@@ -1,0 +1,67 @@
+<h1 class="text-center">URLs</h1>
+<%= link_to  new_url_path do%>
+<i class="fas fa-plus"></i>New URL
+<% end %>
+<table id="myTable" class="display " style="width:100%">
+  <thead>
+    <tr>
+      <td>Title</td>
+      <td>Address</td>
+      <td>Frequency</td>
+      <td>Tags</td>
+      <td>Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @urls.each do |url| %>
+    <tr>
+      <td>
+        <%= url.title %>
+      </td>
+      <td>
+        <%= url.address %>
+      </td>
+      <td>
+        <%= url.frequency %>
+      </td>
+      <td>
+        <% url.tags.each do |tag| %>
+        <%= link_to tag.name, tag %> |
+        <% end %>
+      </td>
+      <td>
+
+        <%= link_to  edit_url_path(url) do%>
+        <i class="far fa-edit"></i>Edit
+        <% end %>
+
+        <%= link_to url, method: :delete, data: {confirm: 'Are you sure?'} do%> 
+        <i class="fas fa-trash-alt"></i> Delete
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1 class="text-center">Tags</h1>
+<table id="myTagTable" class="display " style="width:100%">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Frequency</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tags.each do |tag| %>
+    <tr>
+      <td>
+        <%= tag.name %>
+      </td>
+      <td>
+        <%= tag.frequency %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
